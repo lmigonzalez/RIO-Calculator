@@ -46,13 +46,13 @@ function App() {
     <main>
       <h1 className="mb-16 mt-10 text-center text-4xl">ROI Calculator</h1>
       <div className="m-auto flex w-full max-w-[1200px] flex-col items-center justify-between px-2 lg:flex-row">
-        <div className="ld:w-3/5 flex w-full flex-col gap-4 px-2 py-4">
+        <div className="lg:w-3/5 flex w-full flex-col gap-4 px-2 py-4">
           {/* row 1 */}
           <div className="flex flex-col justify-between gap-4 md:flex-row">
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 1 && (
                 <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
-                  <p>Explanation text</p>
+                  <p>The average sales goal per sales rep.</p>
                 </div>
               )}
 
@@ -76,7 +76,7 @@ function App() {
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 2 && (
                 <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
-                  <p>Explanation text</p>
+                  <p>The expected increase in sales by rep by using.</p>
                 </div>
               )}
               <label className="flex items-center" htmlFor="">
@@ -103,7 +103,7 @@ function App() {
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 3 && (
                 <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
-                  <p>Explanation text</p>
+                  <p>The net profit margin.</p>
                 </div>
               )}
               <label className="flex items-center" htmlFor="">
@@ -126,7 +126,7 @@ function App() {
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 4 && (
                 <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
-                  <p>Explanation text</p>
+                  <p>The total number of client facing reps.</p>
                 </div>
               )}
               <label className="flex items-center" htmlFor="">
@@ -154,7 +154,7 @@ function App() {
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 5 && (
                 <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
-                  <p>Explanation text</p>
+                  <p> The total number of support staff.</p>
                 </div>
               )}
               <label className="flex items-center" htmlFor="">
@@ -177,7 +177,7 @@ function App() {
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 6 && (
                 <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
-                  <p>Explanation text</p>
+                  <p>The total number of sales managers.</p>
                 </div>
               )}
               <label className="flex items-center" htmlFor="">
