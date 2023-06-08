@@ -45,13 +45,14 @@ function App() {
   return (
     <main>
       <h1 className="mb-16 mt-10 text-center text-4xl">ROI Calculator</h1>
-      <div className="m-auto flex w-full max-w-[1200px] flex-col items-center justify-between px-2 lg:flex-row">
-        <div className="lg:w-3/5 flex w-full flex-col gap-4 px-2 py-4">
+      <div className="m-auto flex w-full max-w-[1200px] flex-col items-center justify-between px-2 lg:flex-row gap-4">
+
+        <div className="lg:w-3/5 flex w-full flex-col gap-6 px-2 py-6 bg-[#F4F7F8] rounded-md">
           {/* row 1 */}
           <div className="flex flex-col justify-between gap-4 md:flex-row">
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 1 && (
-                <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
+                <div className="absolute bottom-full z-10 rounded bg-white shadow-lg px-6 py-1">
                   <p>The average sales goal per sales rep.</p>
                 </div>
               )}
@@ -70,12 +71,12 @@ function App() {
                 name="salesGoal"
                 value={formatNumberInput(values.salesGoal)}
                 onChange={onChange}
-                className="h-8 rounded border-[2px] border-gray-300 px-2"
+                className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
             </div>
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 2 && (
-                <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
+                <div className="absolute bottom-full z-10 rounded bg-white shadow-lg px-6 py-1">
                   <p>The expected increase in sales by rep by using.</p>
                 </div>
               )}
@@ -93,7 +94,7 @@ function App() {
                 name="salesIncrease"
                 value={formatNumberInput(values.salesIncrease)}
                 onChange={onChange}
-                className="h-8 rounded border-[2px] border-gray-300 px-2"
+                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
             </div>
           </div>
@@ -102,7 +103,7 @@ function App() {
           <div className="flex flex-col justify-between gap-4 md:flex-row">
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 3 && (
-                <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
+                <div className="absolute bottom-full z-10 rounded bg-white shadow-lg px-6 py-1">
                   <p>The net profit margin.</p>
                 </div>
               )}
@@ -120,12 +121,12 @@ function App() {
                 name="profitMargin"
                 value={formatNumberInput(values.profitMargin)}
                 onChange={onChange}
-                className="h-8 rounded border-[2px] border-gray-300 px-2"
+                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
             </div>
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 4 && (
-                <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
+                <div className="absolute bottom-full z-10 rounded bg-white shadow-lg px-6 py-1">
                   <p>The total number of client facing reps.</p>
                 </div>
               )}
@@ -143,7 +144,7 @@ function App() {
                 name="numSalesReps"
                 value={formatNumberInput(values.numSalesReps)}
                 onChange={onChange}
-                className="h-8 rounded border-[2px] border-gray-300 px-2"
+                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
             </div>
           </div>
@@ -153,7 +154,7 @@ function App() {
           <div className="flex flex-col justify-between gap-4 md:flex-row">
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 5 && (
-                <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
+                <div className="absolute bottom-full z-10 rounded bg-white shadow-lg px-6 py-1">
                   <p> The total number of support staff.</p>
                 </div>
               )}
@@ -171,12 +172,12 @@ function App() {
                 name="numSupportStaff"
                 value={formatNumberInput(values.numSupportStaff)}
                 onChange={onChange}
-                className="h-8 rounded border-[2px] border-gray-300 px-2"
+                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
             </div>
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 6 && (
-                <div className="absolute bottom-full z-10 rounded bg-gray-100 px-6 py-1">
+                <div className="absolute bottom-full z-10 rounded bg-white shadow-lg px-6 py-1">
                   <p>The total number of sales managers.</p>
                 </div>
               )}
@@ -194,7 +195,7 @@ function App() {
                 name="numSalesManagers"
                 value={formatNumberInput(values.numSalesManagers)}
                 onChange={onChange}
-                className="h-8 rounded border-[2px] border-gray-300 px-2"
+                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
             </div>
           </div>
@@ -207,16 +208,17 @@ function App() {
           <div className="mt-10 flex justify-center">
             <button
               onClick={getResults}
-              className="h-10 w-1/2 rounded bg-[#FFE194] text-lg  transition-all hover:scale-95"
+              className="h-10 w-1/2 rounded bg-[#172DE1] text-white text-lg  transition-all hover:scale-95"
             >
               Calculate
             </button>
           </div>
+          
         </div>
 
-        <div className="mt-10 w-full space-y-4 rounded-md bg-[#1B9C85] px-2 py-4 font-light text-white lg:mt-0 lg:w-2/5">
+        <div className="mt-10 w-full space-y-4 rounded-md bg-[#F4F7F8] px-2 py-8 font-light text-black lg:mt-0 lg:w-2/5">
           <p className="text-center text-4xl font-bold text-[#]">{formatNumberInput(roi.toString())}</p>
-          <p className="text-center">
+          <p className="text-center text-base font-medium">
             Expected Return on Investment Per Year with Indentifee
           </p>
           <div className="flex items-start justify-between gap-4">
@@ -244,10 +246,10 @@ function App() {
             <p className="font-semibold"> {formatNumberInput(expectedTotalNetProfitIncrease.toString())}</p>
           </div>
           <div className="flex items-center justify-between">
-            <button className="h-8 rounded bg-[#FFE194] px-4 text-black">
+            <button className="h-8 rounded bg-[#172DE1] px-4 text-white">
               Share Your ROI
             </button>
-            <button className="h-8 border-[1px] border-[#FFE194] px-4 text-[#FFE194]">
+            <button className="h-8 rounded border-[1px] border-[#172DE1] px-4 text-[#172DE1]">
               Book a Demo
             </button>
           </div>
