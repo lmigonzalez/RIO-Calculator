@@ -2,27 +2,43 @@ import { useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
 function App() {
   const initialValues = {
-    input1: '',
-    input2: '',
-    input3: '',
-    input4: '',
-    input5: '',
-    input6: '',
+    salesGoal: 1000000.00,
+    salesIncrease: 10.00,
+    profitMargin: 50.00,
+    numSalesReps: 40,
+    numSupportStaff: 3,
+    numSalesManagers:10,
+  };  
+
+  const initialResult = {
+    annualIncreasePerRep:0,
+    annualNetProfitPerRep:0,
+    annualCostPerUser:0,
+    totalAnnualCost:0,
+    expectedSalesIncreaseForAllUsers:0,
+    expectedTotalNetProfitIncrease: 0,
+    roi:0,
   };
 
   const [values, setValues] = useState(initialValues);
   const [explanationNum, setExplanationNum] = useState(0);
+  const [{ annualIncreasePerRep,
+    annualNetProfitPerRep,
+    annualCostPerUser,
+    totalAnnualCost,
+    expectedSalesIncreaseForAllUsers,
+    expectedTotalNetProfitIncrease,
+    roi }, SetResult] = useState(initialResult)
 
   function onChange(e) {
     setValues({
       ...values,
-      [e.target.name]: e.target.value,
+      [e.target.name]: parseInt(e.target.value),
     });
   }
 
   function getResults() {
-    console.log(values);
-   
+    SetResult(calculateROI(values));   
   }
 
   return (
@@ -50,8 +66,8 @@ function App() {
               </label>
               <input
                 type="text"
-                name="input1"
-                value={values.input1}
+                name="salesGoal"
+                value={values.salesGoal}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -73,8 +89,8 @@ function App() {
               </label>
               <input
                 type="text"
-                name="input2"
-                value={values.input2}
+                name="salesIncrease"
+                value={values.salesIncrease}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -100,8 +116,8 @@ function App() {
               </label>
               <input
                 type="text"
-                name="input3"
-                value={values.input3}
+                name="profitMargin"
+                value={values.profitMargin}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -123,8 +139,8 @@ function App() {
               </label>
               <input
                 type="text"
-                name="input4"
-                value={values.input4}
+                name="numSalesReps"
+                value={values.numSalesReps}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -151,8 +167,8 @@ function App() {
               </label>
               <input
                 type="text"
-                name="input5"
-                value={values.input5}
+                name="numSupportStaff"
+                value={values.numSupportStaff}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -174,8 +190,8 @@ function App() {
               </label>
               <input
                 type="text"
-                name="input6"
-                value={values.input6}
+                name="numSalesManagers"
+                value={values.numSalesManagers}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -198,33 +214,33 @@ function App() {
         </div>
 
         <div className="mt-10 w-full space-y-4 rounded-md bg-[#1B9C85] px-2 py-4 font-light text-white lg:mt-0 lg:w-2/5">
-          <p className="text-center text-4xl font-bold text-[#]">629%</p>
+          <p className="text-center text-4xl font-bold text-[#]">{roi}</p>
           <p className="text-center">
             Expected Return on Investment Per Year with Indentifee
           </p>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual sales increase per sales rep:</p>
-            <p className="font-semibold"> $100,000</p>
+            <p className="font-semibold"> {annualIncreasePerRep}</p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual net profit per sales rep:</p>
-            <p className="font-semibold"> $50,000</p>
+            <p className="font-semibold"> {annualNetProfitPerRep}</p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Annual Identifee cost per user:</p>
-            <p className="font-semibold"> $6,000</p>
+            <p className="font-semibold"> {annualCostPerUser}</p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Total annual Identifee cost for all users:</p>
-            <p className="font-semibold"> $318,000</p>
+            <p className="font-semibold"> {totalAnnualCost}</p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual sales increase for all users:</p>
-            <p className="font-semibold"> $2,000,000</p>
+            <p className="font-semibold"> {expectedSalesIncreaseForAllUsers}</p>
           </div>
           <div className="flex items-start justify-between gap-4 ">
             <p>Expected total net profit increase for all users:</p>
-            <p className="font-semibold"> $1,682,000</p>
+            <p className="font-semibold"> {expectedTotalNetProfitIncrease}</p>
           </div>
           <div className="flex items-center justify-between">
             <button className="h-8 rounded bg-[#FFE194] px-4 text-black">
@@ -243,14 +259,14 @@ function App() {
 
 export default App;
 
-function calculateROI(
+function calculateROI({
   salesGoal,
   salesIncrease,
   profitMargin,
   numSalesReps,
   numSupportStaff,
   numSalesManagers,
-) {
+}) {
   const annualIncreasePerRep = salesGoal * (salesIncrease / 100);
   const annualNetProfitPerRep = annualIncreasePerRep * (profitMargin / 100);
   const annualCostPerUser = 6000;
@@ -258,8 +274,8 @@ function calculateROI(
     annualCostPerUser * (numSalesReps + numSupportStaff + numSalesManagers);
   const expectedSalesIncreaseForAllUsers = annualNetProfitPerRep * numSalesReps;
   const expectedTotalNetProfitIncrease =
-    (expectedSalesIncreaseForAllUsers / totalAnnualCost) * 100;
-
+    expectedSalesIncreaseForAllUsers - totalAnnualCost;
+  const roi = (expectedSalesIncreaseForAllUsers / totalAnnualCost) * 100;
   return {
     annualIncreasePerRep,
     annualNetProfitPerRep,
@@ -267,5 +283,6 @@ function calculateROI(
     totalAnnualCost,
     expectedSalesIncreaseForAllUsers,
     expectedTotalNetProfitIncrease,
+    roi
   };
 }
