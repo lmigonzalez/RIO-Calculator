@@ -21,6 +21,7 @@ function App() {
 
   function getResults() {
     console.log(values);
+   
   }
 
   return (
@@ -158,3 +159,30 @@ function App() {
 }
 
 export default App;
+
+function calculateROI(
+  salesGoal,
+  salesIncrease,
+  profitMargin,
+  numSalesReps,
+  numSupportStaff,
+  numSalesManagers,
+) {
+  const annualIncreasePerRep = salesGoal * (salesIncrease / 100);
+  const annualNetProfitPerRep = annualIncreasePerRep * (profitMargin / 100);
+  const annualCostPerUser = 6000;
+  const totalAnnualCost =
+    annualCostPerUser * (numSalesReps + numSupportStaff + numSalesManagers);
+  const expectedSalesIncreaseForAllUsers = annualNetProfitPerRep * numSalesReps;
+  const expectedTotalNetProfitIncrease =
+    (expectedSalesIncreaseForAllUsers / totalAnnualCost) * 100;
+
+  return {
+    annualIncreasePerRep,
+    annualNetProfitPerRep,
+    annualCostPerUser,
+    totalAnnualCost,
+    expectedSalesIncreaseForAllUsers,
+    expectedTotalNetProfitIncrease,
+  };
+}
