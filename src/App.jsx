@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
 function App() {
   const initialValues = {
-    salesGoal: 1000000.00,
-    salesIncrease: 10.00,
-    profitMargin: 50.00,
-    numSalesReps: 40,
-    numSupportStaff: 3,
-    numSalesManagers:10,
+    salesGoal: "1000000.00",
+    salesIncrease: "10.00",
+    profitMargin: "50.00",
+    numSalesReps: "40",
+    numSupportStaff: "3",
+    numSalesManagers:"10",
   };  
 
   const initialResult = {
@@ -33,9 +33,10 @@ function App() {
   function onChange(e) {
     setValues({
       ...values,
-      [e.target.name]: parseInt(e.target.value),
+      [e.target.name]: e.target.value,
     });
   }
+ 
 
   function getResults() {
     SetResult(calculateROI(values));   
@@ -67,7 +68,7 @@ function App() {
               <input
                 type="text"
                 name="salesGoal"
-                value={values.salesGoal}
+                value={formatNumberInput(values.salesGoal)}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -90,7 +91,7 @@ function App() {
               <input
                 type="text"
                 name="salesIncrease"
-                value={values.salesIncrease}
+                value={formatNumberInput(values.salesIncrease)}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -117,7 +118,7 @@ function App() {
               <input
                 type="text"
                 name="profitMargin"
-                value={values.profitMargin}
+                value={formatNumberInput(values.profitMargin)}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -140,7 +141,7 @@ function App() {
               <input
                 type="text"
                 name="numSalesReps"
-                value={values.numSalesReps}
+                value={formatNumberInput(values.numSalesReps)}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -168,7 +169,7 @@ function App() {
               <input
                 type="text"
                 name="numSupportStaff"
-                value={values.numSupportStaff}
+                value={formatNumberInput(values.numSupportStaff)}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -191,7 +192,7 @@ function App() {
               <input
                 type="text"
                 name="numSalesManagers"
-                value={values.numSalesManagers}
+                value={formatNumberInput(values.numSalesManagers)}
                 onChange={onChange}
                 className="h-8 rounded border-[2px] border-gray-300 px-2"
               />
@@ -214,33 +215,33 @@ function App() {
         </div>
 
         <div className="mt-10 w-full space-y-4 rounded-md bg-[#1B9C85] px-2 py-4 font-light text-white lg:mt-0 lg:w-2/5">
-          <p className="text-center text-4xl font-bold text-[#]">{roi}</p>
+          <p className="text-center text-4xl font-bold text-[#]">{formatNumberInput(roi.toString())}</p>
           <p className="text-center">
             Expected Return on Investment Per Year with Indentifee
           </p>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual sales increase per sales rep:</p>
-            <p className="font-semibold"> {annualIncreasePerRep}</p>
+            <p className="font-semibold"> {formatNumberInput(annualIncreasePerRep.toString())}</p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual net profit per sales rep:</p>
-            <p className="font-semibold"> {annualNetProfitPerRep}</p>
+            <p className="font-semibold"> {formatNumberInput(annualNetProfitPerRep.toString())}</p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Annual Identifee cost per user:</p>
-            <p className="font-semibold"> {annualCostPerUser}</p>
+            <p className="font-semibold"> {formatNumberInput(annualCostPerUser.toString())}</p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Total annual Identifee cost for all users:</p>
-            <p className="font-semibold"> {totalAnnualCost}</p>
+            <p className="font-semibold"> {formatNumberInput(totalAnnualCost.toString())}</p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual sales increase for all users:</p>
-            <p className="font-semibold"> {expectedSalesIncreaseForAllUsers}</p>
+            <p className="font-semibold"> {formatNumberInput(expectedSalesIncreaseForAllUsers.toString())}</p>
           </div>
           <div className="flex items-start justify-between gap-4 ">
             <p>Expected total net profit increase for all users:</p>
-            <p className="font-semibold"> {expectedTotalNetProfitIncrease}</p>
+            <p className="font-semibold"> {formatNumberInput(expectedTotalNetProfitIncrease.toString())}</p>
           </div>
           <div className="flex items-center justify-between">
             <button className="h-8 rounded bg-[#FFE194] px-4 text-black">
@@ -267,6 +268,13 @@ function calculateROI({
   numSupportStaff,
   numSalesManagers,
 }) {
+  salesGoal = parseFloat(salesGoal.replace(/\s/g, ""));
+  salesIncrease = parseFloat(salesIncrease.replace(/\s/g, ""));
+  profitMargin = parseFloat(profitMargin.replace(/\s/g, ""));
+  numSalesReps = parseFloat(numSalesReps.replace(/\s/g, ""));
+  numSupportStaff = parseFloat(numSupportStaff.replace(/\s/g, ""));
+  numSalesManagers = parseFloat(numSalesManagers.replace(/\s/g, ""));
+
   const annualIncreasePerRep = salesGoal * (salesIncrease / 100);
   const annualNetProfitPerRep = annualIncreasePerRep * (profitMargin / 100);
   const annualCostPerUser = 6000;
@@ -276,6 +284,7 @@ function calculateROI({
   const expectedTotalNetProfitIncrease =
     expectedSalesIncreaseForAllUsers - totalAnnualCost;
   const roi = (expectedSalesIncreaseForAllUsers / totalAnnualCost) * 100;
+
   return {
     annualIncreasePerRep,
     annualNetProfitPerRep,
@@ -286,3 +295,24 @@ function calculateROI({
     roi
   };
 }
+
+function formatNumberInput(inputValue) {
+  if (inputValue.charAt(inputValue.length - 1) === '.') return inputValue;
+  // Remove all non-digit characters except the decimal point
+  const cleanedValue = inputValue.replace(/[^\d.]/g, "");
+
+  // Split the cleaned value into integer and decimal parts
+  const [integerPart, decimalPart] = cleanedValue.split(".");
+
+  // Format the integer part with space separators
+  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+  // Reconstruct the formatted number with the decimal part (if present)
+  const formattedNumber = decimalPart
+    ? `${formattedInteger}.${decimalPart.length>2? decimalPart.slice(0,2):decimalPart}`
+    : formattedInteger;
+
+  return formattedNumber;
+}
+
+
