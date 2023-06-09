@@ -280,10 +280,10 @@ function calculateROI({
   const annualCostPerUser = 6000;
   const totalAnnualCost =
     annualCostPerUser * (numSalesReps + numSupportStaff + numSalesManagers);
-  const expectedSalesIncreaseForAllUsers = annualNetProfitPerRep * numSalesReps;
+  const expectedSalesIncreaseForAllUsers = annualIncreasePerRep * numSalesReps;
   const expectedTotalNetProfitIncrease =
-    expectedSalesIncreaseForAllUsers - totalAnnualCost;
-  const roi = (expectedSalesIncreaseForAllUsers / totalAnnualCost) * 100;
+    annualNetProfitPerRep * numSalesReps - totalAnnualCost;
+  const roi = (expectedTotalNetProfitIncrease / totalAnnualCost) * 100;
 
   return {
     annualIncreasePerRep,
