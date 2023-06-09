@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
 function App() {
   const initialValues = {
-    salesGoal: '1000000.00',
-    salesIncrease: '10.00',
-    profitMargin: '50.00',
+    salesGoal: '$1000000.00',
+    salesIncrease: '10.00%',
+    profitMargin: '50.00%',
     numSalesReps: '40',
     numSupportStaff: '3',
     numSalesManagers: '10',
@@ -24,9 +24,9 @@ function App() {
   const [explanationNum, setExplanationNum] = useState(0);
   const [
     {
-      annualIncreasePerRep,
-      annualNetProfitPerRep,
-      annualCostPerUser,
+      // annualIncreasePerRep,
+      // annualNetProfitPerRep,
+      // annualCostPerUser,
       totalAnnualCost,
       expectedSalesIncreaseForAllUsers,
       expectedTotalNetProfitIncrease,
@@ -72,7 +72,7 @@ function App() {
               <input
                 type="text"
                 name="salesGoal"
-                value={formatNumberInput(values.salesGoal)}
+                value={formatNumberInput(values.salesGoal,'$')}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
@@ -95,7 +95,7 @@ function App() {
               <input
                 type="text"
                 name="salesIncrease"
-                value={formatNumberInput(values.salesIncrease)}
+                value={formatNumberInput(values.salesIncrease,'%')}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
@@ -122,7 +122,7 @@ function App() {
               <input
                 type="text"
                 name="profitMargin"
-                value={formatNumberInput(values.profitMargin)}
+                value={formatNumberInput(values.profitMargin,'%')}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
@@ -292,12 +292,12 @@ function calculateROI({
   numSupportStaff,
   numSalesManagers,
 }) {
-  salesGoal = parseFloat(salesGoal.replace(/\s/g, ''));
-  salesIncrease = parseFloat(salesIncrease.replace(/\s/g, ''));
-  profitMargin = parseFloat(profitMargin.replace(/\s/g, ''));
-  numSalesReps = parseFloat(numSalesReps.replace(/\s/g, ''));
-  numSupportStaff = parseFloat(numSupportStaff.replace(/\s/g, ''));
-  numSalesManagers = parseFloat(numSalesManagers.replace(/\s/g, ''));
+  salesGoal = parseFloat(salesGoal.replace(/[$|%|,]+/g, ''));
+  salesIncrease = parseFloat(salesIncrease.replace(',', ''));
+  profitMargin = parseFloat(profitMargin.replace(',', ''));
+  numSalesReps = parseFloat(numSalesReps.replace(',', ''));
+  numSupportStaff = parseFloat(numSupportStaff.replace(',', ''));
+  numSalesManagers = parseFloat(numSalesManagers.replace(',', ''));
 
   const annualIncreasePerRep = salesGoal * (salesIncrease / 100);
   const annualNetProfitPerRep = annualIncreasePerRep * (profitMargin / 100);
@@ -320,8 +320,15 @@ function calculateROI({
   };
 }
 
-function formatNumberInput(inputValue) {
+function formatNumberInput(inputValue,type) {
   if (inputValue.charAt(inputValue.length - 1) === '.') return inputValue;
+
+  let modifier = ''
+  if (inputValue.match(/^\$/g) || type === '$') modifier = '$';
+  
+  if (inputValue.match(/%$/g) || type === '%' ) modifier = '%';  
+  
+  console.log(inputValue);
   // Remove all non-digit characters except the decimal point
   const cleanedValue = inputValue.replace(/[^\d.]/g, '');
 
@@ -329,14 +336,17 @@ function formatNumberInput(inputValue) {
   const [integerPart, decimalPart] = cleanedValue.split('.');
 
   // Format the integer part with space separators
-  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   // Reconstruct the formatted number with the decimal part (if present)
-  const formattedNumber = decimalPart
+  let formattedNumber = decimalPart
     ? `${formattedInteger}.${
         decimalPart.length > 2 ? decimalPart.slice(0, 2) : decimalPart
       }`
     : formattedInteger;
+
+  if (modifier === '$') formattedNumber = '$' + formattedNumber;
+  if (modifier === '%') formattedNumber += '%';
 
   return formattedNumber;
 }
