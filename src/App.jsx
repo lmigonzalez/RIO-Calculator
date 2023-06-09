@@ -220,7 +220,7 @@ function App() {
 
         <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-4 py-8 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
           <p className="text-center text-5xl font-bold text-[#539165]">
-            {formatNumberInput(roi.toString())}
+            {formatNumberInput(roi.toString(),'%')}
           </p>
           <p className="text-center text-base font-medium">
             Expected Return on Investment Per Year with Indentifee
@@ -250,21 +250,21 @@ function App() {
             <p>Total annual Identifee cost for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(totalAnnualCost.toString())}
+              {formatNumberInput(totalAnnualCost.toString(),'$')}
             </p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual sales increase for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(expectedSalesIncreaseForAllUsers.toString())}
+              {formatNumberInput(expectedSalesIncreaseForAllUsers.toString(),'$')}
             </p>
           </div>
           <div className="flex items-start justify-between gap-4 ">
             <p>Expected total net profit increase for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(expectedTotalNetProfitIncrease.toString())}
+              {formatNumberInput(expectedTotalNetProfitIncrease.toString(),'$')}
             </p>
           </div>
           <div className="flex items-center justify-between">
