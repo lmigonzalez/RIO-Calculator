@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const Result = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState({});
   useEffect(() => {
     setData(params);
@@ -67,12 +68,12 @@ const Result = () => {
             {data.expectedTotalNetProfitIncrease}
           </p>
         </div>
-        <div className="flex items-center justify-between">
-          <button className="h-12 rounded-xl bg-[#172DE1] px-6 text-white transition-all hover:scale-95">
-            Share Your ROI
-          </button>
-          <button className="h-12 rounded-xl border-[1px] border-[#172DE1] px-6 text-[#172DE1] transition-all hover:scale-95">
-            Book a Demo
+        <div className="flex items-center justify-center">
+          <button
+            onClick={() => navigate('/')}
+            className="h-10 rounded-md bg-[#172DE1] px-6 text-white  transition-all hover:scale-95"
+          >
+            Go Back Home
           </button>
         </div>
       </div>
