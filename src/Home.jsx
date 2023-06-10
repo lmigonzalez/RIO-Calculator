@@ -3,7 +3,6 @@ import { AiFillExclamationCircle } from 'react-icons/ai';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 function App() {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const initialValues = {
