@@ -5,11 +5,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 const Result = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [data, setData] = useState({});
-  useEffect(() => {
-    setData(params);
-  }, []);
-  console.log(data);
 
   function formatNumberInput(inputValue, type) {
     if (inputValue.charAt(inputValue.length - 1) === '.') return inputValue;
@@ -43,40 +38,45 @@ const Result = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-4 py-8 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
-        <p className="text-center text-5xl font-bold text-[#539165]">
-          {formatNumberInput(data.roi,'%')}
-        </p>
-        <p className="text-center text-base font-medium">
-          Expected Return on Investment Per Year with Indentifee
-        </p>
-        <div className="flex items-start justify-between gap-4">
-          <p>Total annual Identifee cost for all users:</p>
-          <p className="font-semibold"> {formatNumberInput(data.totalAnnualCost,'$')}</p>
-        </div>
-        <div className="flex items-start justify-between gap-4">
-          <p>Expected annual sales increase for all users:</p>
-          <p className="font-semibold">
-            {' '}
-            {formatNumberInput(data.expectedSalesIncreaseForAllUsers,'$')}
+      {params && (
+        <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-4 py-8 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
+          <p className="text-center text-5xl font-bold text-[#539165]">
+            {formatNumberInput(params.roi, '%')}
           </p>
-        </div>
-        <div className="flex items-start justify-between gap-4 ">
-          <p>Expected total net profit increase for all users:</p>
-          <p className="font-semibold">
-            {' '}
-            {formatNumberInput(data.expectedTotalNetProfitIncrease,'$')}
+          <p className="text-center text-base font-medium">
+            Expected Return on Investment Per Year with Indentifee
           </p>
+          <div className="flex items-start justify-between gap-4">
+            <p>Total annual Identifee cost for all users:</p>
+            <p className="font-semibold">
+              {' '}
+              {formatNumberInput(params.totalAnnualCost, '$')}
+            </p>
+          </div>
+          <div className="flex items-start justify-between gap-4">
+            <p>Expected annual sales increase for all users:</p>
+            <p className="font-semibold">
+              {' '}
+              {formatNumberInput(params.expectedSalesIncreaseForAllUsers, '$')}
+            </p>
+          </div>
+          <div className="flex items-start justify-between gap-4 ">
+            <p>Expected total net profit increase for all users:</p>
+            <p className="font-semibold">
+              {' '}
+              {formatNumberInput(params.expectedTotalNetProfitIncrease, '$')}
+            </p>
+          </div>
+          <div className="flex items-center justify-center">
+            <button
+              onClick={() => navigate('/')}
+              className="h-10 rounded-md bg-[#172DE1] px-6 text-white  transition-all hover:scale-95"
+            >
+              Go Back Home
+            </button>
+          </div>
         </div>
-        <div className="flex items-center justify-center">
-          <button
-            onClick={() => navigate('/')}
-            className="h-10 rounded-md bg-[#172DE1] px-6 text-white  transition-all hover:scale-95"
-          >
-            Go Back Home
-          </button>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
