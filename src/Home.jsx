@@ -96,7 +96,7 @@ function App() {
                 <input
                   type="text"
                   name="salesGoal"
-                  value={formatNumberInput(values.salesGoal, '$')}
+                  value={formatNumberInput(values.salesGoal)}
                   onChange={onChange}
                   className="h-10 w-full rounded border-[1px] border-gray-300 px-12"
                 />
@@ -124,7 +124,7 @@ function App() {
                 <input
                   type="text"
                   name="salesIncrease"
-                  value={formatNumberInput(values.salesIncrease, '%')}
+                  value={formatNumberInput(values.salesIncrease)}
                   onChange={onChange}
                   className="h-10 w-full rounded border-[1px] border-gray-300 px-2 pr-10"
                 />
@@ -156,7 +156,7 @@ function App() {
                 <input
                   type="text"
                   name="profitMargin"
-                  value={formatNumberInput(values.profitMargin, '%')}
+                  value={formatNumberInput(values.profitMargin)}
                   onChange={onChange}
                   className="h-10 w-full rounded border-[1px] border-gray-300 px-2 pr-10"
                 />
