@@ -80,13 +80,18 @@ function App() {
                   onMouseLeave={() => setExplanationNum(0)}
                 />{' '}
               </label>
-              <input
-                type="text"
-                name="salesGoal"
-                value={formatNumberInput(values.salesGoal, '$')}
-                onChange={onChange}
-                className="h-10 rounded border-[1px] border-gray-300 px-2"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  name="salesGoal"
+                  value={formatNumberInput(values.salesGoal, '$')}
+                  onChange={onChange}
+                  className="h-10 w-full rounded border-[1px] border-gray-300 px-12"
+                />
+                <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-l border-[1px] border-gray-300 bg-gray-200">
+                  $
+                </div>
+              </div>
             </div>
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 2 && (
@@ -103,13 +108,18 @@ function App() {
                   onMouseLeave={() => setExplanationNum(0)}
                 />
               </label>
-              <input
-                type="text"
-                name="salesIncrease"
-                value={formatNumberInput(values.salesIncrease, '%')}
-                onChange={onChange}
-                className="h-10 rounded border-[1px] border-gray-300 px-2"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  name="salesIncrease"
+                  value={formatNumberInput(values.salesIncrease, '%')}
+                  onChange={onChange}
+                  className="h-10 w-full rounded border-[1px] border-gray-300 px-2 pr-10"
+                />
+                <div className="absolute right-0 top-0 flex h-10 w-10 items-center justify-center rounded-r border-[1px] border-gray-300 bg-gray-200">
+                  %
+                </div>
+              </div>
             </div>
           </div>
 
@@ -130,13 +140,18 @@ function App() {
                   onMouseLeave={() => setExplanationNum(0)}
                 />
               </label>
-              <input
-                type="text"
-                name="profitMargin"
-                value={formatNumberInput(values.profitMargin, '%')}
-                onChange={onChange}
-                className="h-10 rounded border-[1px] border-gray-300 px-2"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  name="profitMargin"
+                  value={formatNumberInput(values.profitMargin, '%')}
+                  onChange={onChange}
+                  className="h-10 w-full rounded border-[1px] border-gray-300 px-2 pr-10"
+                />
+                <div className="absolute right-0 top-0 flex h-10 w-10 items-center justify-center rounded-r border-[1px] border-gray-300 bg-gray-200">
+                  %
+                </div>
+              </div>
             </div>
             <div className="relative flex w-full flex-col md:w-1/2">
               {explanationNum === 4 && (
@@ -234,17 +249,17 @@ function App() {
             {formatNumberInput(roi.toString(), '%')}
           </p>
           <p className="text-center text-base font-medium">
-            Expected Return on Investment Per Year with Indentifee
+            Expected Return on investment Per Year
           </p>
           <div className="flex items-start justify-between gap-4">
-            <p>Total annual Identifee cost for all users:</p>
+            <p>Total Annual Cost:</p>
             <p className="font-semibold">
               {' '}
               {formatNumberInput(totalAnnualCost.toString(), '$')}
             </p>
           </div>
           <div className="flex items-start justify-between gap-4">
-            <p>Expected annual sales increase for all users:</p>
+            <p>Annual Sales Increase:</p>
             <p className="font-semibold">
               {' '}
               {formatNumberInput(
@@ -254,7 +269,7 @@ function App() {
             </p>
           </div>
           <div className="flex items-start justify-between gap-4 ">
-            <p>Expected total net profit increase for all users:</p>
+            <p>Profit Increase:</p>
             <p className="font-semibold">
               {' '}
               {formatNumberInput(
