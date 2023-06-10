@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const initialValues = {
     salesGoal: '$1000000.00',
@@ -38,6 +40,9 @@ function App() {
     SetResult,
   ] = useState(initialResult);
 
+  const [isCopyUrl, setIsCopyUrl] = useState(false);
+  const [url, setUrl] = useState('');
+
   function onChange(e) {
     setValues({
       ...values,
@@ -48,14 +53,21 @@ function App() {
   function getResults() {
     const result = calculateROI(values);
     SetResult(result);
+    setIsCopyUrl(true);
+    console.log(location.search);
   }
 
   function shareResult() {
+    if (!isCopyUrl) return;
+    const mainPath = window.location.href;
     const result = calculateROI(values);
-    navigate(
-      `/result/${result.roi}/${result.totalAnnualCost}/${result.expectedSalesIncreaseForAllUsers}/${result.expectedTotalNetProfitIncrease}`
+    setUrl(
+      `${mainPath}result/${result.roi}/${result.totalAnnualCost}/${result.expectedSalesIncreaseForAllUsers}/${result.expectedTotalNetProfitIncrease}`
     );
   }
+
+  console.log(url);
+  console.log(isCopyUrl);
 
   return (
     <main className="font-display">
@@ -279,12 +291,19 @@ function App() {
             </p>
           </div>
           <div className="flex items-center justify-between">
-            <button
-              onClick={shareResult}
-              className="h-12 rounded-xl bg-[#172DE1] px-6 text-white transition-all hover:scale-95"
-            >
-              Share Your ROI
-            </button>
+            <CopyToClipboard text={url}>
+              <button
+                disabled={!isCopyUrl}
+                onClick={shareResult}
+                className={`${
+                  isCopyUrl
+                    ? 'cursor-copy bg-[#172DE1] transition-all hover:scale-95'
+                    : 'cursor-not-allowed bg-gray-400'
+                } h-12 rounded-xl  px-6 text-white `}
+              >
+                Share Your ROI
+              </button>
+            </CopyToClipboard>
             <button className="h-12 rounded-xl border-[1px] border-[#172DE1] px-6 text-[#172DE1] transition-all hover:scale-95">
               Book a Demo
             </button>
