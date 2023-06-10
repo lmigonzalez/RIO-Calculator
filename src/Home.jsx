@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 function App() {
   const location = useLocation();
@@ -298,10 +298,7 @@ function App() {
               <button
                 disabled={isDirty}
                 onClick={shareResult}
-                className={`h-12 rounded-xl  px-6 text-white 
-                ${isDirty ? 'cursor-not-allowed bg-gray-400' : 'bg-[#172DE1] transition-all hover:scale-95'}
-                ${url ? "cursor-copy" : "cursor-pointer"}
-                 `}
+                className={`h-12 rounded-xl  px-6 text-white ${isDirty ? 'cursor-not-allowed bg-gray-400' : 'bg-[#172DE1] transition-all hover:scale-95'} ${url ? "cursor-copy" : "cursor-pointer"} `}
               >
                 Share Your ROI
               </button>
