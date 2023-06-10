@@ -6,7 +6,7 @@ function App() {
   const location = useLocation();
 
   const initialValues = {
-    salesGoal: '$1000000.00',
+    salesGoal: '1000000.00',
     salesIncrease: '10.00',
     profitMargin: '50.00',
     numSalesReps: '40',
