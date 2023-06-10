@@ -52,7 +52,7 @@ const Result = () => {
         </p>
         <div className="flex items-start justify-between gap-4">
           <p>Total annual Identifee cost for all users:</p>
-          <p className="font-semibold"> {data.totalAnnualCost}</p>
+          <p className="font-semibold"> {formatNumberInput(data.totalAnnualCost,'$')}</p>
         </div>
         <div className="flex items-start justify-between gap-4">
           <p>Expected annual sales increase for all users:</p>
