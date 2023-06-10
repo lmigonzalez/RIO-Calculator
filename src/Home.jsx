@@ -12,17 +12,7 @@ function App() {
     numSalesReps: '40',
     numSupportStaff: '3',
     numSalesManagers: '10',
-  };
-
-  const initialResult = {
-    annualIncreasePerRep: 0,
-    annualNetProfitPerRep: 0,
-    annualCostPerUser: 0,
-    totalAnnualCost: 0,
-    expectedSalesIncreaseForAllUsers: 0,
-    expectedTotalNetProfitIncrease: 0,
-    roi: 0,
-  };
+  }; 
 
   const [values, setValues] = useState(initialValues);
   const [explanationNum, setExplanationNum] = useState(0);
@@ -37,9 +27,8 @@ function App() {
       roi,
     },
     SetResult,
-  ] = useState(initialResult);
-
-  const [isDirty, setIsDirty] = useState(false);
+  ] = useState(calculateROI(values));
+  
   const [url, setUrl] = useState('');
   
 
@@ -50,27 +39,15 @@ function App() {
     });
   }
   useEffect(() => {
-    setIsDirty(true)
-  }, [values])
-  useEffect(()=>{console.log(isDirty,url)},[isDirty, url])
-  
-  function getResults() {
-    const result = calculateROI(values);
-    SetResult(result);
-    setIsDirty(false);
-    setUrl("");
-    console.log(location.search);
-  }
-
-  function shareResult() {
-    if (isDirty) return;
     console.log("hey")
     const mainPath = window.location.href;
-    const result = calculateROI(values);
+    const result = calculateROI(values)
+    SetResult(result)
+    console.log(values)
     setUrl(
-      `${mainPath}result/${result.roi}/${result.totalAnnualCost}/${result.expectedSalesIncreaseForAllUsers}/${result.expectedTotalNetProfitIncrease}`
+      `${mainPath}result/${roi}/${totalAnnualCost}/${expectedSalesIncreaseForAllUsers}/${expectedTotalNetProfitIncrease}`
     );
-  }
+  }, [values])    
 
   return (
     <main className="font-display">
@@ -249,14 +226,14 @@ function App() {
             to the annual profit figure.
           </p>
 
-          <div className="mt-10 flex justify-center">
+          {/* <div className="mt-10 flex justify-center">
             <button
               onClick={getResults}
               className="h-12 w-1/2 rounded-xl bg-[#172DE1] text-lg text-white  transition-all hover:scale-95"
             >
               Calculate
             </button>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-4 py-8 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
@@ -294,11 +271,9 @@ function App() {
             </p>
           </div>
           <div className="flex items-center justify-between">
-            <CopyToClipboard text={url || null} options={{message:"link copied"}} >
-              <button
-                disabled={isDirty}
-                onClick={shareResult}
-                className={`h-12 rounded-xl  px-6 text-white ${isDirty ? 'cursor-not-allowed bg-gray-400' : 'bg-[#172DE1] transition-all hover:scale-95'} ${url ? "cursor-copy" : "cursor-pointer"} `}
+            <CopyToClipboard  text={url} options={{message:"link copied"}} >
+              <button                 
+                className={`h-12 rounded-xl  px-6 text-white bg-[#172DE1] transition-all hover:scale-95 cursor-pointer `}
               >
                 Share Your ROI
               </button>
