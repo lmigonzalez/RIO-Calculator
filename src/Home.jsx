@@ -37,12 +37,10 @@ function App() {
       [e.target.name]: e.target.value,
     });
   }
-  useEffect(() => {
-    console.log("hey")
+  useEffect(() => {   
     const mainPath = window.location.href;
     const result = calculateROI(values)
     SetResult(result)
-    console.log(values)
     setUrl(
       `${mainPath}result/${roi}/${totalAnnualCost}/${expectedSalesIncreaseForAllUsers}/${expectedTotalNetProfitIncrease}`
     );
@@ -224,15 +222,7 @@ function App() {
             Support staff is included in the identifee costs, but does not add
             to the annual profit figure.
           </p>
-
-          {/* <div className="mt-10 flex justify-center">
-            <button
-              onClick={getResults}
-              className="h-12 w-1/2 rounded-xl bg-[#172DE1] text-lg text-white  transition-all hover:scale-95"
-            >
-              Calculate
-            </button>
-          </div> */}
+          
         </div>
 
         <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-4 py-8 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
