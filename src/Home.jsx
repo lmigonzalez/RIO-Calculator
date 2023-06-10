@@ -39,8 +39,9 @@ function App() {
     SetResult,
   ] = useState(initialResult);
 
-  const [isCopyUrl, setIsCopyUrl] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
   const [url, setUrl] = useState('');
+  
 
   function onChange(e) {
     setValues({
@@ -48,16 +49,22 @@ function App() {
       [e.target.name]: e.target.value,
     });
   }
-
+  useEffect(() => {
+    setIsDirty(true)
+  }, [values])
+  useEffect(()=>{console.log(isDirty,url)},[isDirty, url])
+  
   function getResults() {
     const result = calculateROI(values);
     SetResult(result);
-    setIsCopyUrl(true);
+    setIsDirty(false);
+    setUrl("");
     console.log(location.search);
   }
 
   function shareResult() {
-    if (!isCopyUrl) return;
+    if (isDirty) return;
+    console.log("hey")
     const mainPath = window.location.href;
     const result = calculateROI(values);
     setUrl(
@@ -287,15 +294,14 @@ function App() {
             </p>
           </div>
           <div className="flex items-center justify-between">
-            <CopyToClipboard text={url}>
+            <CopyToClipboard text={url || null} options={{message:"link copied"}} >
               <button
-                disabled={!isCopyUrl}
+                disabled={isDirty}
                 onClick={shareResult}
-                className={`${
-                  isCopyUrl
-                    ? 'cursor-copy bg-[#172DE1] transition-all hover:scale-95'
-                    : 'cursor-not-allowed bg-gray-400'
-                } h-12 rounded-xl  px-6 text-white `}
+                className={`h-12 rounded-xl  px-6 text-white 
+                ${isDirty ? 'cursor-not-allowed bg-gray-400' : 'bg-[#172DE1] transition-all hover:scale-95'}
+                ${url ? "cursor-copy" : "cursor-pointer"}
+                 `}
               >
                 Share Your ROI
               </button>
