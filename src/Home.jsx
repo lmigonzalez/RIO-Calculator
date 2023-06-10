@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 function App() {
   const location = useLocation();
@@ -30,7 +30,6 @@ function App() {
   ] = useState(calculateROI(values));
   
   const [url, setUrl] = useState('');
-  
 
   function onChange(e) {
     setValues({
