@@ -7,8 +7,8 @@ function App() {
 
   const initialValues = {
     salesGoal: '$1000000.00',
-    salesIncrease: '10.00%',
-    profitMargin: '50.00%',
+    salesIncrease: '10.00',
+    profitMargin: '50.00',
     numSalesReps: '40',
     numSupportStaff: '3',
     numSalesManagers: '10',
@@ -64,9 +64,6 @@ function App() {
       `${mainPath}result/${result.roi}/${result.totalAnnualCost}/${result.expectedSalesIncreaseForAllUsers}/${result.expectedTotalNetProfitIncrease}`
     );
   }
-
-  console.log(url);
-  console.log(isCopyUrl);
 
   return (
     <main className="font-display">
