@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
-import { useNavigate, createSearchParams } from 'react-router-dom';
-function Home() {
+import { useNavigate } from 'react-router-dom';
+function App() {
   const navigate = useNavigate();
 
   const initialValues = {
-    salesGoal: '1000000.00',
-    salesIncrease: '10.00',
-    profitMargin: '50.00',
+    salesGoal: '$1000000.00',
+    salesIncrease: '10.00%',
+    profitMargin: '50.00%',
     numSalesReps: '40',
     numSupportStaff: '3',
     numSalesManagers: '10',
@@ -27,9 +27,9 @@ function Home() {
   const [explanationNum, setExplanationNum] = useState(0);
   const [
     {
-      annualIncreasePerRep,
-      annualNetProfitPerRep,
-      annualCostPerUser,
+      // annualIncreasePerRep,
+      // annualNetProfitPerRep,
+      // annualCostPerUser,
       totalAnnualCost,
       expectedSalesIncreaseForAllUsers,
       expectedTotalNetProfitIncrease,
@@ -83,7 +83,7 @@ function Home() {
               <input
                 type="text"
                 name="salesGoal"
-                value={formatNumberInput(values.salesGoal)}
+                value={formatNumberInput(values.salesGoal, '$')}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
@@ -106,7 +106,7 @@ function Home() {
               <input
                 type="text"
                 name="salesIncrease"
-                value={formatNumberInput(values.salesIncrease)}
+                value={formatNumberInput(values.salesIncrease, '%')}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
@@ -133,7 +133,7 @@ function Home() {
               <input
                 type="text"
                 name="profitMargin"
-                value={formatNumberInput(values.profitMargin)}
+                value={formatNumberInput(values.profitMargin, '%')}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
               />
@@ -229,56 +229,41 @@ function Home() {
           </div>
         </div>
 
-        <div className="mt-10 flex h-auto w-full flex-col justify-between space-y-4 rounded-md bg-[#F4F7F8] px-4 py-6 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
+        <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-4 py-8 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
           <p className="text-center text-5xl font-bold text-[#539165]">
-            {formatNumberInput(roi.toString())}
+            {formatNumberInput(roi.toString(), '%')}
           </p>
           <p className="text-center text-base font-medium">
             Expected Return on Investment Per Year with Indentifee
           </p>
-          {/* <div className="flex items-start justify-between gap-4">
-            <p>Expected annual sales increase per sales rep:</p>
-            <p className="font-semibold">
-              {' '}
-              {formatNumberInput(annualIncreasePerRep.toString())}
-            </p>
-          </div> */}
-          {/* <div className="flex items-start justify-between gap-4">
-            <p>Expected annual net profit per sales rep:</p>
-            <p className="font-semibold">
-              {' '}
-              {formatNumberInput(annualNetProfitPerRep.toString())}
-            </p>
-          </div> */}
-          {/* <div className="flex items-start justify-between gap-4">
-            <p>Annual Identifee cost per user:</p>
-            <p className="font-semibold">
-              {' '}
-              {formatNumberInput(annualCostPerUser.toString())}
-            </p>
-          </div> */}
           <div className="flex items-start justify-between gap-4">
             <p>Total annual Identifee cost for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(totalAnnualCost.toString())}
+              {formatNumberInput(totalAnnualCost.toString(), '$')}
             </p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual sales increase for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(expectedSalesIncreaseForAllUsers.toString())}
+              {formatNumberInput(
+                expectedSalesIncreaseForAllUsers.toString(),
+                '$'
+              )}
             </p>
           </div>
           <div className="flex items-start justify-between gap-4 ">
             <p>Expected total net profit increase for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(expectedTotalNetProfitIncrease.toString())}
+              {formatNumberInput(
+                expectedTotalNetProfitIncrease.toString(),
+                '$'
+              )}
             </p>
           </div>
-          <div className="mt-auto flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <button
               onClick={shareResult}
               className="h-12 rounded-xl bg-[#172DE1] px-6 text-white transition-all hover:scale-95"
@@ -296,7 +281,7 @@ function Home() {
   );
 }
 
-export default Home;
+export default App;
 
 function calculateROI({
   salesGoal,
@@ -306,22 +291,22 @@ function calculateROI({
   numSupportStaff,
   numSalesManagers,
 }) {
-  salesGoal = parseFloat(salesGoal.replace(/\s/g, ''));
-  salesIncrease = parseFloat(salesIncrease.replace(/\s/g, ''));
-  profitMargin = parseFloat(profitMargin.replace(/\s/g, ''));
-  numSalesReps = parseFloat(numSalesReps.replace(/\s/g, ''));
-  numSupportStaff = parseFloat(numSupportStaff.replace(/\s/g, ''));
-  numSalesManagers = parseFloat(numSalesManagers.replace(/\s/g, ''));
+  salesGoal = parseFloat(salesGoal.replace(/[$|%|,]+/g, ''));
+  salesIncrease = parseFloat(salesIncrease.replace(',', ''));
+  profitMargin = parseFloat(profitMargin.replace(',', ''));
+  numSalesReps = parseFloat(numSalesReps.replace(',', ''));
+  numSupportStaff = parseFloat(numSupportStaff.replace(',', ''));
+  numSalesManagers = parseFloat(numSalesManagers.replace(',', ''));
 
   const annualIncreasePerRep = salesGoal * (salesIncrease / 100);
   const annualNetProfitPerRep = annualIncreasePerRep * (profitMargin / 100);
   const annualCostPerUser = 6000;
   const totalAnnualCost =
     annualCostPerUser * (numSalesReps + numSupportStaff + numSalesManagers);
-  const expectedSalesIncreaseForAllUsers = annualNetProfitPerRep * numSalesReps;
+  const expectedSalesIncreaseForAllUsers = annualIncreasePerRep * numSalesReps;
   const expectedTotalNetProfitIncrease =
-    expectedSalesIncreaseForAllUsers - totalAnnualCost;
-  const roi = (expectedSalesIncreaseForAllUsers / totalAnnualCost) * 100;
+    annualNetProfitPerRep * numSalesReps - totalAnnualCost;
+  const roi = (expectedTotalNetProfitIncrease / totalAnnualCost) * 100;
 
   return {
     annualIncreasePerRep,
@@ -334,8 +319,14 @@ function calculateROI({
   };
 }
 
-function formatNumberInput(inputValue) {
+function formatNumberInput(inputValue, type) {
   if (inputValue.charAt(inputValue.length - 1) === '.') return inputValue;
+
+  let modifier = '';
+  if (inputValue.match(/^\$/g) || type === '$') modifier = '$';
+
+  if (inputValue.match(/%$/g) || type === '%') modifier = '%';
+
   // Remove all non-digit characters except the decimal point
   const cleanedValue = inputValue.replace(/[^\d.]/g, '');
 
@@ -343,14 +334,17 @@ function formatNumberInput(inputValue) {
   const [integerPart, decimalPart] = cleanedValue.split('.');
 
   // Format the integer part with space separators
-  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   // Reconstruct the formatted number with the decimal part (if present)
-  const formattedNumber = decimalPart
+  let formattedNumber = decimalPart
     ? `${formattedInteger}.${
         decimalPart.length > 2 ? decimalPart.slice(0, 2) : decimalPart
       }`
     : formattedInteger;
+
+  if (modifier === '$') formattedNumber = '$' + formattedNumber;
+  if (modifier === '%') formattedNumber += '%';
 
   return formattedNumber;
 }
