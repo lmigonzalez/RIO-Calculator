@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 function App() {
   const location = useLocation();
@@ -41,7 +41,6 @@ function App() {
 
   const [isDirty, setIsDirty] = useState(false);
   const [url, setUrl] = useState('');
-  
 
   function onChange(e) {
     setValues({
@@ -50,22 +49,25 @@ function App() {
     });
   }
   useEffect(() => {
-    setIsDirty(true)
-  }, [values])
-  useEffect(()=>{console.log(isDirty,url)},[isDirty, url])
-  
+    setIsDirty(true);
+  }, [values]);
+  useEffect(() => {
+    console.log(isDirty, url);
+  }, [isDirty, url]);
+
   function getResults() {
     const result = calculateROI(values);
     SetResult(result);
     setIsDirty(false);
-    setUrl("");
+    setUrl('');
     console.log(location.search);
   }
 
   function shareResult() {
     if (isDirty) return;
-    console.log("hey")
-    const mainPath = window.location.href;
+    console.log('hey');
+    // const mainPath = window.location.href;
+    const mainPath = 'https://roi-cal.vercel.app/';
     const result = calculateROI(values);
     setUrl(
       `${mainPath}result/${result.roi}/${result.totalAnnualCost}/${result.expectedSalesIncreaseForAllUsers}/${result.expectedTotalNetProfitIncrease}`
@@ -294,11 +296,21 @@ function App() {
             </p>
           </div>
           <div className="flex items-center justify-between">
-            <CopyToClipboard text={url || null} options={{message:"link copied"}} >
+            <CopyToClipboard
+              text={url || null}
+              options={{ message: 'link copied' }}
+            >
               <button
                 disabled={isDirty}
                 onClick={shareResult}
-                className={`h-12 rounded-xl  px-6 text-white ${isDirty ? 'cursor-not-allowed bg-gray-400' : 'bg-[#172DE1] transition-all hover:scale-95'} ${url ? "cursor-copy" : "cursor-pointer"} `}
+                className={`h-12 rounded-xl  px-6 text-white 
+                ${
+                  isDirty
+                    ? 'cursor-not-allowed bg-gray-400'
+                    : 'bg-[#172DE1] transition-all hover:scale-95'
+                }
+                ${url ? 'cursor-copy' : 'cursor-pointer'}
+                 `}
               >
                 Share Your ROI
               </button>
