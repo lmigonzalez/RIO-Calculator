@@ -6,12 +6,12 @@ function App() {
   const location = useLocation();
 
   const initialValues = {
-    salesGoal: '1000000.00',
-    salesIncrease: '10.00',
-    profitMargin: '50.00',
-    numSalesReps: '40',
-    numSupportStaff: '3',
-    numSalesManagers: '10',
+    salesGoal: '',
+    salesIncrease: '',
+    profitMargin: '50',
+    numSalesReps: '',
+    numSupportStaff: '',
+    numSalesManagers: '',
   };
 
   const [values, setValues] = useState(initialValues);
@@ -73,6 +73,7 @@ function App() {
                 <input
                   type="text"
                   name="salesGoal"
+                  placeholder="Add value"
                   value={formatNumberInput(values.salesGoal)}
                   onChange={onChange}
                   className="h-10 w-full rounded border-[1px] border-gray-300 px-12"
@@ -101,6 +102,7 @@ function App() {
                 <input
                   type="text"
                   name="salesIncrease"
+                  placeholder="Add value"
                   value={formatNumberInput(values.salesIncrease)}
                   onChange={onChange}
                   className="h-10 w-full rounded border-[1px] border-gray-300 px-2 pr-10"
@@ -133,6 +135,7 @@ function App() {
                 <input
                   type="text"
                   name="profitMargin"
+                  placeholder="Add value"
                   value={formatNumberInput(values.profitMargin)}
                   onChange={onChange}
                   className="h-10 w-full rounded border-[1px] border-gray-300 px-2 pr-10"
@@ -160,6 +163,7 @@ function App() {
               <input
                 type="text"
                 name="numSalesReps"
+                placeholder="Add value"
                 value={formatNumberInput(values.numSalesReps)}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
@@ -188,6 +192,7 @@ function App() {
               <input
                 type="text"
                 name="numSupportStaff"
+                placeholder="Add value"
                 value={formatNumberInput(values.numSupportStaff)}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
@@ -211,6 +216,7 @@ function App() {
               <input
                 type="text"
                 name="numSalesManagers"
+                placeholder="Add value"
                 value={formatNumberInput(values.numSalesManagers)}
                 onChange={onChange}
                 className="h-10 rounded border-[1px] border-gray-300 px-2"
@@ -227,6 +233,7 @@ function App() {
         <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-8 py-10 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
           <div className="text-center">
             <p className="mb-4 font-semibold">YOUR RETURN ON INVESTMENT</p>
+
             <p className="text-center text-5xl font-bold text-[#539165]">
               {console.log(isNaN(roi))}
               {isNaN(roi) ?"": formatNumberInput(roi.toString(), '%')}
