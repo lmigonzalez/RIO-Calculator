@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -301,7 +302,7 @@ function Result() {
       <div className="h-20"></div>
     </main>
   );
-};
+}
 
 export default Result;
 
