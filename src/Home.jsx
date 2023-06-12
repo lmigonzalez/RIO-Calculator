@@ -303,7 +303,7 @@ function calculateROI({
   const expectedSalesIncreaseForAllUsers = annualIncreasePerRep * numSalesReps;
   const expectedTotalNetProfitIncrease =
     annualNetProfitPerRep * numSalesReps - totalAnnualCost;
-  const roi = (expectedTotalNetProfitIncrease / totalAnnualCost) * 100;
+  const roi = ((expectedTotalNetProfitIncrease / totalAnnualCost) * 100).toFixed();
 
   return {
     annualIncreasePerRep,
