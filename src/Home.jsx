@@ -234,10 +234,9 @@ function App() {
           <div className="text-center">
             <p className="mb-4 font-semibold">YOUR RETURN ON INVESTMENT</p>
 
-            <p className="text-center text-5xl font-bold text-[#539165]">
-              {console.log(isNaN(roi))}
+            <p className="text-center text-5xl font-bold text-[#539165]">              
               {isNaN(roi) ?"": formatNumberInput(roi.toString(), '%')}
-              <span className="text-3xl font-light text-black"> /year</span>
+             {!isNaN(roi) &&<span className="text-3xl font-light text-black"> /year</span>}
             </p>
           </div>
 
