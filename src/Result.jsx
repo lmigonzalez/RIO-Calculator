@@ -257,7 +257,7 @@ function Result() {
             <p className="text-center text-5xl font-bold text-[#539165]">
               {isNaN(roi) ? '' : formatNumberInput(roi.toString(), '%')}
               {!isNaN(roi) && (
-                <span className="text-3xl font-light text-black"> /year</span>
+                <span className="text-2xl font-light text-black"> /per year</span>
               )}
             </p>
           </div>
