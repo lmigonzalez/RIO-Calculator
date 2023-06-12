@@ -350,7 +350,7 @@ function Result() {
           <div className="flex items-center justify-between">
             <CopyToClipboard text={url} options={{ message: 'link copied' }}  onCopy={()=>SetCopied(true)}>
               <button
-                 className={`h-12 cursor-pointer  rounded-[5px] px-[15px] border-[1px] border-[#172DE1]  text-[#172DE1] transition-all hover:scale-95 ${copied?'bg-[#172DE1] text-white':''}`}
+                className={`h-12 cursor-pointer  rounded-[5px] px-[15px] border-[1px] border-[#172DE1]   text-white transition-all hover:scale-95 ${copied?' bg-[#539165]':'bg-[#172DE1]'}`}
               >
                 {copied? "ROI Link Copied":"Share Your ROI"}
               </button>
