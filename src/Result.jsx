@@ -259,10 +259,8 @@ function Result() {
             <p className="mb-4 font-semibold">YOUR RETURN ON INVESTMENT</p>
 
             <p className="text-center text-5xl font-bold text-[#539165]">
-              {isNaN(roi) ? "---%" : formatNumberInput(roi.toString(), '%')}
-              {!isNaN(roi) && (
-                <span className="text-3xl font-light text-black"> /per year</span>
-              )}
+              {isNaN(roi) ? "---%" : formatNumberInput(roi.toString(), '%')}              
+              <span className="text-3xl font-light text-black"> /per year</span>              
             </p>
           </div>
 
@@ -352,7 +350,7 @@ function Result() {
           <div className="flex items-center justify-between">
             <CopyToClipboard text={url} options={{ message: 'link copied' }}  onCopy={()=>SetCopied(true)}>
               <button
-                className={`h-12 cursor-pointer  rounded-[5px] bg-[#172DE1] px-[15px] text-white transition-all hover:scale-95 `}
+                 className={`h-12 cursor-pointer  rounded-[5px] px-[15px] border-[1px] border-[#172DE1]  text-[#172DE1] transition-all hover:scale-95 ${copied?'bg-[#172DE1] text-white':''}`}
               >
                 {copied? "ROI Link Copied":"Share Your ROI"}
               </button>
