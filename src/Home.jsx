@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Alert from './components/alert';
+
 function App() {
   const location = useLocation();
 
@@ -16,6 +18,7 @@ function App() {
   };
 
   const [values, setValues] = useState(initialValues);
+  const [alert, setAlert] = useState(false);
   const [explanationNum, setExplanationNum] = useState(0);
   const [
     {
@@ -59,6 +62,7 @@ function App() {
 
   return (
     <main className="font-display">
+      {alert && <Alert type="success" message="Your ROI Link has been copied, ready to share!"/>}
       <div className="h-14"></div>
       <div className="m-auto flex w-full max-w-[1400px] flex-col  justify-between gap-4 px-2 lg:flex-row">
         <div className="flex w-full flex-col gap-6 rounded-md bg-[#F4F7F8] p-10 lg:w-3/5">
@@ -245,30 +249,15 @@ function App() {
           <div className="text-center">
             <p className="mb-4 font-semibold">YOUR RETURN ON INVESTMENT</p>
 
-            <p className="text-center text-5xl font-bold text-[#539165]">
-              {isNaN(roi) ? '' : formatNumberInput(roi.toString(), '%')}
-              {!isNaN(roi) && (
-                <span className="text-2xl font-light text-black"> /per year</span>
-              )}
+            <p className="text-center text-5xl font-bold text-[#539165]">              
+              {isNaN(roi) ?"---%": formatNumberInput(roi.toString(), '%')}
+             {!isNaN(roi)&&<span className="text-3xl font-light text-black"> /per year</span>}
             </p>
           </div>
 
           <p className="text-center text-base font-medium">with Identifee</p>
-          <div className="relative flex items-start justify-between gap-4">
-            {explanationNum === 7 && (
-              <div className="absolute bottom-full z-10 rounded bg-white px-6 py-1 shadow-lg">
-                <p>The total cost for all users per year.</p>
-              </div>
-            )}
-            <p className="flex items-center gap-1">
-              Total Annual Cost:{' '}
-              <AiFillExclamationCircle
-                fill="#99afc4ff"
-                className="cursor-pointer"
-                onMouseEnter={() => setExplanationNum(7)}
-                onMouseLeave={() => setExplanationNum(0)}
-              />{' '}
-            </p>
+          <div className="flex items-start justify-between gap-4">
+            <p>Total Annual Cost:</p>
             <p className="font-semibold">
               {' '}
               {isNaN(totalAnnualCost)
@@ -337,7 +326,9 @@ function App() {
           </div>
           <hr className="" />
           <div className="flex items-center justify-between">
-            <CopyToClipboard text={url} options={{ message: 'link copied' }}>
+            <CopyToClipboard text={url} options={{ message: 'link copied' }} onCopy={() => {
+              setAlert(true);
+            }} >
               <button
                 className={`h-12 cursor-pointer  rounded-[5px] bg-[#172DE1] px-[15px] text-white transition-all hover:scale-95 `}
               >
