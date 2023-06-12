@@ -324,7 +324,7 @@ function App() {
                 className="cursor-pointer"
                 onMouseEnter={() => setExplanationNum(9)}
                 onMouseLeave={() => setExplanationNum(0)}
-              />{' '}
+              />
             </p>
             <p className="font-semibold">
               {' '}
