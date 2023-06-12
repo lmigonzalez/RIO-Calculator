@@ -42,7 +42,7 @@ function App() {
     const result = calculateROI(values);
     SetResult(result);
     setUrl(
-      `${mainPath}result/${roi}/${totalAnnualCost}/${expectedSalesIncreaseForAllUsers}/${expectedTotalNetProfitIncrease}`
+      `${mainPath}result/${result.roi}/${result.totalAnnualCost}/${result.expectedSalesIncreaseForAllUsers}/${result.expectedTotalNetProfitIncrease}`
     );
   }, [values]);
 
