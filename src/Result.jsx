@@ -12,16 +12,17 @@ function Result() {
     profitMargin,
     numSalesReps,
     numSupportStaff,
-    numSalesManagers,} =useParams()
-  const navigate = useNavigate()  
+    numSalesManagers,
+  } = useParams();
+  const navigate = useNavigate();
 
   const initialValues = {
-    salesGoal: salesGoal ??"",
-    salesIncrease: salesIncrease??"",
-    profitMargin: profitMargin??"50",
-    numSalesReps: numSalesReps??"",
-    numSupportStaff: numSupportStaff??"",
-    numSalesManagers: numSalesManagers??"",
+    salesGoal: salesGoal ?? '',
+    salesIncrease: salesIncrease ?? '',
+    profitMargin: profitMargin ?? '50',
+    numSalesReps: numSalesReps ?? '',
+    numSupportStaff: numSupportStaff ?? '',
+    numSalesManagers: numSalesManagers ?? '',
   };
 
   const [values, setValues] = useState(initialValues);
@@ -50,17 +51,23 @@ function Result() {
   useEffect(() => {
     const mainPath = window.location.href;
     const result = calculateROI(values);
-    const rs = mainPath.indexOf("result");
+    const rs = mainPath.indexOf('result');
     SetResult(result);
     setUrl(
-          `${rs !== -1?mainPath.substring(0,rs):mainPath}result/${values.salesGoal===""?"NaN":values.salesGoal}/${values.salesIncrease===""?"NaN":values.salesIncrease}/${values.salesIncrease===""?"NaN":values.salesIncrease}/${values.profitMargin===""?"NaN":values.profitMargin}/${values.numSalesReps===""?"NaN":values.numSalesReps}/${values.numSupportStaff===""?"NaN":values.numSupportStaff}/${values.numSalesManagers===""?"NaN":values.numSalesManagers}`
-
+      `${rs !== -1 ? mainPath.substring(0, rs) : mainPath}result/${
+        values.salesGoal === '' ? 'NaN' : values.salesGoal
+      }/${values.salesIncrease === '' ? 'NaN' : values.salesIncrease}/${
+        values.salesIncrease === '' ? 'NaN' : values.salesIncrease
+      }/${values.profitMargin === '' ? 'NaN' : values.profitMargin}/${
+        values.numSalesReps === '' ? 'NaN' : values.numSalesReps
+      }/${values.numSupportStaff === '' ? 'NaN' : values.numSupportStaff}/${
+        values.numSalesManagers === '' ? 'NaN' : values.numSalesManagers
+      }`
     );
   }, [values]);
 
-
   return (
-   <main className="font-display">
+    <main className="font-display">
       <div className="h-14"></div>
       <div className="m-auto flex w-full max-w-[1400px] flex-col  justify-between gap-4 px-2 lg:flex-row">
         <div className="flex w-full flex-col gap-6 rounded-md bg-[#F4F7F8] p-10 lg:w-3/5">
@@ -247,41 +254,94 @@ function Result() {
           <div className="text-center">
             <p className="mb-4 font-semibold">YOUR RETURN ON INVESTMENT</p>
 
-            <p className="text-center text-5xl font-bold text-[#539165]">              
-              {isNaN(roi) ?"": formatNumberInput(roi.toString(), '%')}
-             {!isNaN(roi) &&<span className="text-3xl font-light text-black"> /year</span>}
+            <p className="text-center text-5xl font-bold text-[#539165]">
+              {isNaN(roi) ? '' : formatNumberInput(roi.toString(), '%')}
+              {!isNaN(roi) && (
+                <span className="text-3xl font-light text-black"> /year</span>
+              )}
             </p>
           </div>
 
-          <p className="text-center text-base font-medium">With Identifee</p>
-          <div className="flex items-start justify-between gap-4">
-            <p>Total Annual Cost:</p>
+          <p className="text-center text-base font-medium">with Identifee</p>
+          <div className="relative flex items-start justify-between gap-4">
+            {explanationNum === 7 && (
+              <div className="absolute bottom-full z-10 rounded bg-white px-6 py-1 shadow-lg">
+                <p>The total cost for all users per year.</p>
+              </div>
+            )}
+            <p className="flex items-center gap-1">
+              Total Annual Cost:{' '}
+              <AiFillExclamationCircle
+                fill="#99afc4ff"
+                className="cursor-pointer"
+                onMouseEnter={() => setExplanationNum(7)}
+                onMouseLeave={() => setExplanationNum(0)}
+              />{' '}
+            </p>
             <p className="font-semibold">
               {' '}
-              {isNaN(totalAnnualCost)?"":formatNumberInput(totalAnnualCost.toString(), '$')}
+              {isNaN(totalAnnualCost)
+                ? ''
+                : formatNumberInput(totalAnnualCost.toString(), '$')}
             </p>
           </div>
 
           <hr className="" />
-          <div className="flex items-start justify-between gap-4">
-            <p>Annual Sales Increase:</p>
+          <div className="relative flex items-start justify-between gap-4">
+            {explanationNum === 8 && (
+              <div className="absolute bottom-full z-10 rounded bg-white px-6 py-1 shadow-lg">
+                <p>
+                  The expected additional revenue for all users per year by
+                  using.
+                </p>
+              </div>
+            )}
+            <p className="flex items-center gap-1">
+              Annual Sales Increase:{' '}
+              <AiFillExclamationCircle
+                fill="#99afc4ff"
+                className="cursor-pointer"
+                onMouseEnter={() => setExplanationNum(8)}
+                onMouseLeave={() => setExplanationNum(0)}
+              />
+            </p>
             <p className="font-semibold">
               {' '}
-              {isNaN(expectedSalesIncreaseForAllUsers) ?"":formatNumberInput(
-                expectedSalesIncreaseForAllUsers.toString(),
-                '$'
-              )}
+              {isNaN(expectedSalesIncreaseForAllUsers)
+                ? ''
+                : formatNumberInput(
+                    expectedSalesIncreaseForAllUsers.toString(),
+                    '$'
+                  )}
             </p>
           </div>
           <hr className="" />
-          <div className="flex items-start justify-between gap-4 ">
-            <p>Profit Increase:</p>
+          <div className="relative flex items-start justify-between gap-4 ">
+            {explanationNum === 9 && (
+              <div className="absolute bottom-full z-10 rounded bg-white px-6 py-1 shadow-lg">
+                <p>
+                  Total net profit. Support staff are not counted towards the
+                  increased profit.
+                </p>
+              </div>
+            )}
+            <p className="flex items-center gap-1">
+              Profit Increase:{' '}
+              <AiFillExclamationCircle
+                fill="#99afc4ff"
+                className="cursor-pointer"
+                onMouseEnter={() => setExplanationNum(9)}
+                onMouseLeave={() => setExplanationNum(0)}
+              />
+            </p>
             <p className="font-semibold">
               {' '}
-              {isNaN( expectedTotalNetProfitIncrease)?"": formatNumberInput(
-                expectedTotalNetProfitIncrease.toString(),
-                '$'
-              )}
+              {isNaN(expectedTotalNetProfitIncrease)
+                ? ''
+                : formatNumberInput(
+                    expectedTotalNetProfitIncrease.toString(),
+                    '$'
+                  )}
             </p>
           </div>
           <hr className="" />
@@ -329,7 +389,10 @@ function calculateROI({
   const expectedSalesIncreaseForAllUsers = annualIncreasePerRep * numSalesReps;
   const expectedTotalNetProfitIncrease =
     annualNetProfitPerRep * numSalesReps - totalAnnualCost;
-  const roi = ((expectedTotalNetProfitIncrease / totalAnnualCost) * 100).toFixed();
+  const roi = (
+    (expectedTotalNetProfitIncrease / totalAnnualCost) *
+    100
+  ).toFixed();
 
   return {
     annualIncreasePerRep,
