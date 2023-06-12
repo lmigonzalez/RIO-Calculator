@@ -4,7 +4,6 @@ import { AiFillExclamationCircle } from 'react-icons/ai';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useParams } from 'react-router-dom';
-import Alert from './components/alert';
 
 function Result() {
   const location = useLocation();
@@ -27,8 +26,7 @@ function Result() {
     numSalesManagers: numSalesManagers ?? '',
   };
 
-  const [values, setValues] = useState(initialValues);
-  const [alert, setAlert] = useState(false);
+  const [values, setValues] = useState(initialValues);  
   const [explanationNum, setExplanationNum] = useState(0);
   const [
     {
@@ -44,6 +42,7 @@ function Result() {
   ] = useState(calculateROI(values));
 
   const [url, setUrl] = useState('');
+  const [copied, SetCopied] = useState(false);
 
   function onChange(e) {
     setValues({
@@ -55,6 +54,7 @@ function Result() {
     const mainPath = window.location.href;
     const result = calculateROI(values);
     const rs = mainPath.indexOf('result');
+    SetCopied(false);
     SetResult(result);
     setUrl(
       `${rs !== -1 ? mainPath.substring(0, rs) : mainPath}result/${
@@ -71,7 +71,7 @@ function Result() {
 
   return (
     <main className="font-display">
-      {alert && <Alert type="success" message="Your ROI Link has been copied, ready to share!"/>}
+     
       <div className="h-14"></div>
       <div className="m-auto flex w-full max-w-[1400px] flex-col  justify-between gap-4 px-2 lg:flex-row">
         <div className="flex w-full flex-col gap-6 rounded-md bg-[#F4F7F8] p-10 lg:w-3/5">
@@ -350,11 +350,11 @@ function Result() {
           </div>
           <hr className="" />
           <div className="flex items-center justify-between">
-            <CopyToClipboard text={url} options={{ message: 'link copied' }} onCopy={() => setAlert(true)}>
+            <CopyToClipboard text={url} options={{ message: 'link copied' }}  onCopy={()=>SetCopied(true)}>
               <button
                 className={`h-12 cursor-pointer  rounded-[5px] bg-[#172DE1] px-[15px] text-white transition-all hover:scale-95 `}
               >
-                Share Your ROI
+                {copied? "ROI Link Copied":"Share Your ROI"}
               </button>
             </CopyToClipboard>
             <button className="h-12 rounded-[5px] border-[1px] border-[#172DE1] px-[15px] text-[#172DE1] transition-all hover:scale-95">

@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { AiFillExclamationCircle } from 'react-icons/ai';
 import { useLocation } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Alert from './components/alert';
 
 function App() {
   const location = useLocation();
@@ -17,8 +16,7 @@ function App() {
     numSalesManagers: '',
   };
 
-  const [values, setValues] = useState(initialValues);
-  const [alert, setAlert] = useState(false);
+  const [values, setValues] = useState(initialValues);  
   const [explanationNum, setExplanationNum] = useState(0);
   const [
     {
@@ -34,6 +32,7 @@ function App() {
   ] = useState(calculateROI(values));
 
   const [url, setUrl] = useState('');
+  const [copied, SetCopied] = useState(false);
 
   function onChange(e) {
     setValues({
@@ -45,6 +44,7 @@ function App() {
     const mainPath = window.location.href;
     const result = calculateROI(values);
     const rs = mainPath.indexOf('result');
+    SetCopied(false)
 
     SetResult(result);
     setUrl(
@@ -61,8 +61,7 @@ function App() {
   }, [values]);
 
   return (
-    <main className="font-display">
-      {alert && <Alert type="success" message="Your ROI Link has been copied, ready to share!"/>}
+    <main className="font-display">      
       <div className="h-14"></div>
       <div className="m-auto flex w-full max-w-[1400px] flex-col  justify-between gap-4 px-2 lg:flex-row">
         <div className="flex w-full flex-col gap-6 rounded-md bg-[#F4F7F8] p-10 lg:w-3/5">
@@ -256,12 +255,25 @@ function App() {
           </div>
 
           <p className="text-center text-base font-medium">with Identifee</p>
-          <div className="flex items-start justify-between gap-4">
-            <p>Total Annual Cost:</p>
+          <div className="relative flex items-start justify-between gap-4">
+            {explanationNum === 7 && (
+              <div className="absolute bottom-full z-10 rounded bg-white px-6 py-1 shadow-lg">
+                <p>The total cost for all users per year.</p>
+              </div>
+            )}
+            <p className="flex items-center gap-1">
+              Total Annual Cost:{' '}
+              <AiFillExclamationCircle
+                fill="#99afc4ff"
+                className="cursor-pointer"
+                onMouseEnter={() => setExplanationNum(7)}
+                onMouseLeave={() => setExplanationNum(0)}
+              />{' '}
+            </p>
             <p className="font-semibold">
               {' '}
               {isNaN(totalAnnualCost)
-                ? ''
+                ? '$---'
                 : formatNumberInput(totalAnnualCost.toString(), '$')}
             </p>
           </div>
@@ -288,7 +300,7 @@ function App() {
             <p className="font-semibold">
               {' '}
               {isNaN(expectedSalesIncreaseForAllUsers)
-                ? ''
+                ? '$---'
                 : formatNumberInput(
                     expectedSalesIncreaseForAllUsers.toString(),
                     '$'
@@ -317,7 +329,7 @@ function App() {
             <p className="font-semibold">
               {' '}
               {isNaN(expectedTotalNetProfitIncrease)
-                ? ''
+                ? '$---'
                 : formatNumberInput(
                     expectedTotalNetProfitIncrease.toString(),
                     '$'
@@ -326,13 +338,11 @@ function App() {
           </div>
           <hr className="" />
           <div className="flex items-center justify-between">
-            <CopyToClipboard text={url} options={{ message: 'link copied' }} onCopy={() => {
-              setAlert(true);
-            }} >
+            <CopyToClipboard text={url} options={{ message: 'link copied' }} onCopy={()=>SetCopied(true)}>
               <button
-                className={`h-12 cursor-pointer  rounded-[5px] bg-[#172DE1] px-[15px] text-white transition-all hover:scale-95 `}
+                className={`h-12 cursor-pointer  rounded-[5px] px-[15px] border-[1px] border-[#172DE1]  text-[#172DE1] transition-all hover:scale-95 `}
               >
-                Share Your ROI
+                {copied? "ROI Link Copied":"Share Your ROI"}
               </button>
             </CopyToClipboard>
             <button className="h-12 rounded-[5px] border-[1px] border-[#172DE1] px-[15px] text-[#172DE1] transition-all hover:scale-95">
