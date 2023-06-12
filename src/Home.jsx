@@ -40,9 +40,12 @@ function App() {
   useEffect(() => {
     const mainPath = window.location.href;
     const result = calculateROI(values);
+    const rs = mainPath.indexOf("result");
+    
     SetResult(result);
     setUrl(
-      `${mainPath}result/${result.roi}/${result.totalAnnualCost}/${result.expectedSalesIncreaseForAllUsers}/${result.expectedTotalNetProfitIncrease}`
+                `${rs !== -1?mainPath.substring(0,rs):mainPath}result/${values.salesGoal===""?"NaN":values.salesGoal}/${values.salesIncrease===""?"NaN":values.salesIncrease}/${values.salesIncrease===""?"NaN":values.salesIncrease}/${values.profitMargin===""?"NaN":values.profitMargin}/${values.numSalesReps===""?"NaN":values.numSalesReps}/${values.numSupportStaff===""?"NaN":values.numSupportStaff}/${values.numSalesManagers===""?"NaN":values.numSalesManagers}`
+
     );
   }, [values]);
 

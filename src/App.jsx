@@ -8,7 +8,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="/result/:roi/:totalAnnualCost/:expectedSalesIncreaseForAllUsers/:expectedTotalNetProfitIncrease"
+          path="result/:salesGoal/:salesIncrease/:salesIncrease/:profitMargin/:numSalesReps/:numSupportStaff/:numSalesManagers"
           element={<Result />}
         />
       </Routes>
