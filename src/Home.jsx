@@ -12,7 +12,7 @@ function App() {
     numSalesReps: '40',
     numSupportStaff: '3',
     numSalesManagers: '10',
-  }; 
+  };
 
   const [values, setValues] = useState(initialValues);
   const [explanationNum, setExplanationNum] = useState(0);
@@ -28,7 +28,7 @@ function App() {
     },
     SetResult,
   ] = useState(calculateROI(values));
-  
+
   const [url, setUrl] = useState('');
 
   function onChange(e) {
@@ -37,20 +37,20 @@ function App() {
       [e.target.name]: e.target.value,
     });
   }
-  useEffect(() => {   
+  useEffect(() => {
     const mainPath = window.location.href;
-    const result = calculateROI(values)
-    SetResult(result)
+    const result = calculateROI(values);
+    SetResult(result);
     setUrl(
       `${mainPath}result/${result.roi}/${result.totalAnnualCost}/${result.expectedSalesIncreaseForAllUsers}/${result.expectedTotalNetProfitIncrease}`
     );
-  }, [values])    
+  }, [values]);
 
   return (
     <main className="font-display">
       <div className="h-14"></div>
       <div className="m-auto flex w-full max-w-[1400px] flex-col  justify-between gap-4 px-2 lg:flex-row">
-        <div className="flex w-full flex-col gap-6 rounded-md bg-[#F4F7F8] px-4 py-6 lg:w-3/5">
+        <div className="flex w-full flex-col gap-6 rounded-md bg-[#F4F7F8] p-10 lg:w-3/5">
           {/* row 1 */}
           <div className="flex flex-col justify-between gap-4 md:flex-row">
             <div className="relative flex w-full flex-col md:w-1/2">
@@ -222,16 +222,18 @@ function App() {
             Support staff is included in the identifee costs, but does not add
             to the annual profit figure.
           </p>
-          
         </div>
 
-        <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-4 py-8 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
-          <p className="text-center text-5xl font-bold text-[#539165]">
-            {formatNumberInput(roi.toString(), '%')}
-          </p>
-          <p className="text-center text-base font-medium">
-            Expected Return on investment Per Year
-          </p>
+        <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-8 py-10 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
+          <div className="text-center">
+            <p className="mb-4 font-semibold">YOUR RETURN ON INVESTMENT</p>
+            <p className="text-center text-5xl font-bold text-[#539165]">
+              {formatNumberInput(roi.toString(), '%')}
+              <span className="text-3xl font-light text-black"> /year</span>
+            </p>
+          </div>
+
+          <p className="text-center text-base font-medium">With Identifee</p>
           <div className="flex items-start justify-between gap-4">
             <p>Total Annual Cost:</p>
             <p className="font-semibold">
@@ -239,6 +241,8 @@ function App() {
               {formatNumberInput(totalAnnualCost.toString(), '$')}
             </p>
           </div>
+
+          <hr className="" />
           <div className="flex items-start justify-between gap-4">
             <p>Annual Sales Increase:</p>
             <p className="font-semibold">
@@ -249,6 +253,7 @@ function App() {
               )}
             </p>
           </div>
+          <hr className="" />
           <div className="flex items-start justify-between gap-4 ">
             <p>Profit Increase:</p>
             <p className="font-semibold">
@@ -259,15 +264,16 @@ function App() {
               )}
             </p>
           </div>
+          <hr className="" />
           <div className="flex items-center justify-between">
-            <CopyToClipboard  text={url} options={{message:"link copied"}} >
-              <button                 
-                className={`h-12 rounded-xl  px-6 text-white bg-[#172DE1] transition-all hover:scale-95 cursor-pointer `}
+            <CopyToClipboard text={url} options={{ message: 'link copied' }}>
+              <button
+                className={`h-12 cursor-pointer  rounded-[5px] bg-[#172DE1] px-[15px] text-white transition-all hover:scale-95 `}
               >
                 Share Your ROI
               </button>
             </CopyToClipboard>
-            <button className="h-12 rounded-xl border-[1px] border-[#172DE1] px-6 text-[#172DE1] transition-all hover:scale-95">
+            <button className="h-12 rounded-[5px] border-[1px] border-[#172DE1] px-[15px] text-[#172DE1] transition-all hover:scale-95">
               Book a Demo
             </button>
           </div>
