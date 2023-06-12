@@ -228,7 +228,8 @@ function App() {
           <div className="text-center">
             <p className="mb-4 font-semibold">YOUR RETURN ON INVESTMENT</p>
             <p className="text-center text-5xl font-bold text-[#539165]">
-              {formatNumberInput(roi.toString(), '%')}
+              {console.log(isNaN(roi))}
+              {isNaN(roi) ?"": formatNumberInput(roi.toString(), '%')}
               <span className="text-3xl font-light text-black"> /year</span>
             </p>
           </div>
@@ -238,7 +239,7 @@ function App() {
             <p>Total Annual Cost:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(totalAnnualCost.toString(), '$')}
+              {isNaN(totalAnnualCost)?"":formatNumberInput(totalAnnualCost.toString(), '$')}
             </p>
           </div>
 
@@ -247,7 +248,7 @@ function App() {
             <p>Annual Sales Increase:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(
+              {isNaN(expectedSalesIncreaseForAllUsers) ?"":formatNumberInput(
                 expectedSalesIncreaseForAllUsers.toString(),
                 '$'
               )}
@@ -258,7 +259,7 @@ function App() {
             <p>Profit Increase:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(
+              {isNaN( expectedTotalNetProfitIncrease)?"": formatNumberInput(
                 expectedTotalNetProfitIncrease.toString(),
                 '$'
               )}

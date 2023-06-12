@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const Result = () => {
-  const params = useParams();
+  const {params} = useParams();
   const navigate = useNavigate();
 
   function formatNumberInput(inputValue, type) {
@@ -41,7 +41,7 @@ const Result = () => {
       {params && (
         <div className="mt-10 h-full w-full space-y-4 rounded-md bg-[#F4F7F8] px-4 py-8 font-light text-black md:mt-0 lg:mt-0 lg:w-2/5">
           <p className="text-center text-5xl font-bold text-[#539165]">
-            {formatNumberInput(params.roi, '%')}
+           {isNaN(params.roi) ?"": formatNumberInput(params.roi.toString(), '%')}
           </p>
           <p className="text-center text-base font-medium">
             Expected Return on Investment Per Year with Indentifee
@@ -50,21 +50,22 @@ const Result = () => {
             <p>Total annual Identifee cost for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(params.totalAnnualCost, '$')}
+              {isNaN(params.totalAnnualCost) ?"": formatNumberInput(params.totalAnnualCost.toString(), '%')}
             </p>
           </div>
           <div className="flex items-start justify-between gap-4">
             <p>Expected annual sales increase for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(params.expectedSalesIncreaseForAllUsers, '$')}
+              {isNaN(params.expectedSalesIncreaseForAllUsers) ?"": formatNumberInput(params.expectedSalesIncreaseForAllUsers.toString(), '%')}
+
             </p>
           </div>
           <div className="flex items-start justify-between gap-4 ">
             <p>Expected total net profit increase for all users:</p>
             <p className="font-semibold">
               {' '}
-              {formatNumberInput(params.expectedTotalNetProfitIncrease, '$')}
+              {isNaN(params.expectedTotalNetProfitIncrease) ?"": formatNumberInput(params.expectedTotalNetProfitIncrease.toString(), '%')}
             </p>
           </div>
           <div className="flex items-center justify-center">
